@@ -1,0 +1,78 @@
+Developing a complete Blood Bank Management System in the C programming language is a substantial task that typically involves database integration, user interfaces, and extensive code. Below, I'll provide a simplified example of C code for managing a list of donors. Keep in mind that this is a basic illustration and not a full-featured system.
+
+c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// Structure to represent a donor
+struct Donor {
+    int donor_id;
+    char name[50];
+    char blood_type[5];
+    char last_donation_date[11];
+};
+
+// Function to add a donor to the list
+void addDonor(struct Donor donors[], int *donorCount) {
+    struct Donor newDonor;
+    printf("Enter donor ID: ");
+    scanf("%d", &newDonor.donor_id);
+    printf("Enter donor name: ");
+    scanf("%s", newDonor.name);
+    printf("Enter blood type: ");
+    scanf("%s", newDonor.blood_type);
+    printf("Enter last donation date (YYYY-MM-DD): ");
+    scanf("%s", newDonor.last_donation_date);
+
+    donors[*donorCount] = newDonor;
+    (*donorCount)++;
+    printf("Donor added successfully!\n");
+}
+
+// Function to search for donors by blood type
+void searchDonorByBloodType(struct Donor donors[], int donorCount, char bloodType[]) {
+    printf("Donors with %s blood type:\n", bloodType);
+    for (int i = 0; i < donorCount; i++) {
+        if (strcmp(donors[i].blood_type, bloodType) == 0) {
+            printf("ID: %d, Name: %s, Last Donation Date: %s\n", donors[i].donor_id, donors[i].name, donors[i].last_donation_date);
+        }
+    }
+}
+
+int main() {
+    struct Donor donors[100];  // Assuming a maximum of 100 donors
+    int donorCount = 0;
+    int choice;
+    char bloodType[5];
+
+    do {
+        printf("\nBlood Bank Management System\n");
+        printf("1. Add Donor\n");
+        printf("2. Search Donor by Blood Type\n");
+        printf("3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                addDonor(donors, &donorCount);
+                break;
+            case 2:
+                printf("Enter blood type to search: ");
+                scanf("%s", bloodType);
+                searchDonorByBloodType(donors, donorCount, bloodType);
+                break;
+            case 3:
+                printf("Exiting the program.\n");
+                break;
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    } while (choice != 3);
+
+    return 0;
+}
+
+
+This code provides a basic command-line interface for adding donors and searching for donors by blood type. In a real-world scenario, you would expand and improve upon this code to include additional features and error handling.
